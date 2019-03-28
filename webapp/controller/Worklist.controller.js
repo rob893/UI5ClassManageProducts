@@ -73,6 +73,25 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent the update finished event
 		 * @public
 		 */
+		 onCallTestAPI: function(oEvent) {
+			$.ajax({
+			    type: 'POST',
+			    url: "https://api4dev.gonpl.com/test/",
+			    async: false
+			  }).done(function(results) {
+			    console.log(results);
+			  })
+			  .fail(function(err) {
+			    if (err !== undefined) {
+			      var oErrorResponse = $.parseJSON(err.responseText);
+			      sap.m.MessageToast.show(oErrorResponse.message, {
+			        duration: 6000
+			      });
+			    } else {
+			      sap.m.MessageToast.show("Unknown error!");
+			    }
+			  });	
+		 },
 		 
 		 onAdd: function(oEvent) {
 		 	this.getRouter().navTo("add");

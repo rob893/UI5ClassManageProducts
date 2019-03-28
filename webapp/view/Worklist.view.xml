@@ -42,6 +42,21 @@
 						key="Expensive" />
 				</items>
 				<content>
+					
+					<List
+						headerText="Test Products"
+						items="{test>/Products}">
+						<items>
+							<ObjectListItem
+								title="{test>Name}"
+								number="{test>Price}"
+								numberState="{= ${Price} > 500 ? 'Error' : 'Success'}"
+								intro="{test>ProductID}" 
+								numberUnit="{test>CurrencyCode}">
+							</ObjectListItem>
+						</items>
+					</List>
+					<Button id="testButton" icon="sap-icon://add" press="onCallTestAPI" tooltip="Test API" />
 					<Table
 						id="table"
 						width="auto"

@@ -44,7 +44,7 @@ sap.ui.define([
 					maxValue: 5,
 					liveChange: this._onRate.bind(this)
 				}).addStyleClass("sapUiTinyMarginEnd"));
-				
+				 
 				this.setAggregation("_button", new Button({
 					text: "{i18n>productRatingButtonText}",
 					enabled: false,

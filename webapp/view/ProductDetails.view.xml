@@ -1,0 +1,27 @@
+<mvc:View
+	controllerName="opensap.manageproducts.ManageProducts.controller.Object"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:course="opensap.manageproducts.ManageProducts.control">
+	<Panel
+		class="sapUiResponsiveMargin"
+		width="auto"
+		headerText="{i18n>productTitle}"
+		expandable="{device>/system/phone}"
+		expanded="true">
+		<content>
+			<form:SimpleForm id="objectForm">
+				<form:content>
+					<Label text="{i18n>productCategoryLabel}"/>
+					<Text text="{Category}"/>
+					<Label text="{i18n>productNameLabel}"/>
+					<Text text="{Name}"/>
+					<Label text="{i18n>productWeightLabel}"/>
+					<Text text="{= ${WeightMeasure} + ' ' + ${WeightUnit}}"/>
+				</form:content>
+				<course:ProductRate valueSubmit="onSubmit" />
+			</form:SimpleForm>
+		</content>
+	</Panel>
+</mvc:View>

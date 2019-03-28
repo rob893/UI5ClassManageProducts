@@ -1,0 +1,142 @@
+<mvc:View
+	controllerName="opensap.manageproducts.ManageProducts.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:l="sap.ui.layout">
+
+	<semantic:FullscreenPage
+		id="page"
+		navButtonPress="onNavBack"
+		showNavButton="true"
+		title="{i18n>worklistTitle}">
+
+		<semantic:content>
+			<IconTabBar
+				id="idIconTabBar"
+				select="onQuickFilter">
+				<items>
+					<IconTabFilter
+						showAll="true"
+						count="All"
+						text="Products"
+						key="All" />
+					<IconTabSeparator />
+					<IconTabFilter
+						icon="sap-icon://loan"
+						iconColor="Positive"
+						count="{worklistView>/Cheap}"
+						text="Cheap"
+						key="Cheap" />
+					<IconTabFilter
+						icon="sap-icon://waiver"
+						iconColor="Critical"
+						count="{worklistView>/Moderate}"
+						text="Moderate"
+						key="Moderate" />
+					<IconTabFilter
+						icon="sap-icon://money-bills"
+						iconColor="Negative"
+						count="{worklistView>/Expensive}"
+						text="Expensive"
+						key="Expensive" />
+				</items>
+				<content>
+					<Table
+						id="table"
+						width="auto"
+						items="{
+							path: '/ProductSet',
+							sorter: {
+								path: 'ProductID',
+								descending: false
+							},
+							parameters: {
+								expand: 'ToSupplier'
+							}
+						}"
+						noDataText="{worklistView>/tableNoDataText}"
+						busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+						growing="true"
+						growingScrollToLoad="true"
+						updateFinished=".onUpdateFinished">
+		
+						<headerToolbar>
+							<OverflowToolbar>
+								<Title
+									id="tableHeader"
+									text="{worklistView>/worklistTableTitle}"
+									level="H3"/>
+								<ToolbarSpacer />
+								<SearchField
+									id="searchField"
+									tooltip="{i18n>worklistSearchTooltip}"
+									search=".onSearch">
+									<layoutData>
+										<OverflowToolbarLayoutData
+											maxWidth="200px"
+											priority="NeverOverflow"/>
+									</layoutData>
+								</SearchField>
+								<Button id="addButton" icon="sap-icon://add" press="onAdd" tooltip="Add" />
+							</OverflowToolbar>
+						</headerToolbar>
+		
+						<columns>
+							<Column id="nameColumn">
+								<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+							</Column>
+							<Column
+								id="supplierNameColumn"
+								demandPopin="true"
+								minScreenWidth="Tablet">
+								<Text text="{i18n>tableSupplierColumnTitle}"/>
+							</Column>
+							<Column
+								id="webAddressColumn"
+								demandPopin="false"
+								minScreenWidth="Tablet">
+								<Text text="{i18n>tableSupplierColumnTitle}"/>
+							</Column>
+							<Column id="unitNumberColumn" hAlign="End">
+								<Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
+							</Column>
+						</columns>
+		
+						<items>
+							<ColumnListItem
+								type="Navigation"
+								press=".onPress">
+								<cells>
+									<ObjectIdentifier
+										title="{ProductID}"
+										text="{Name}"
+										titleActive="true"
+										titlePress="onShowDetailPopover" />
+									<Text text="{SupplierName}"/>
+									<Link
+										text="{ToSupplier/WebAddress}"
+										href="{ToSupplier/WebAddress}"
+										target="_blank"/>
+									<ObjectNumber
+										number="{
+											path: 'Price',
+											formatter: '.formatter.numberUnit'
+										}"
+										unit="{CurrencyCode}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+			
+		</semantic:content>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+	</semantic:FullscreenPage>
+
+</mvc:View>

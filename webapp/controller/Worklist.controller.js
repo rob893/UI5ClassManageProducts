@@ -79,8 +79,10 @@ sap.ui.define([
 			var newDummyData = inputField.getValue();
 			var dummyData = model.getProperty("/DummyData");
 			
-			dummyData.push({"Data": newDummyData});
-			model.setProperty("/DummyData", dummyData);
+			if(Array.isArray(dummyData)) {
+				dummyData.push({"Data": newDummyData});
+				model.setProperty("/DummyData", dummyData);
+			}
 			
 			$.ajax({
 			    type: 'POST',

@@ -74,11 +74,21 @@ sap.ui.define([
 		 * @public
 		 */
 		 onCallTestAPI: function(oEvent) {
+		 	var model = this.getView().getModel("test");
+		 	var inputField = this.getView().byId("dummyDataInput");
+			var newDummyData = inputField.getValue();
+			var dummyData = model.getProperty("/DummyData");
+			
+			dummyData.push({"Data": newDummyData});
+			model.setProperty("/DummyData", dummyData);
+			
 			$.ajax({
 			    type: 'POST',
 			    url: "https://api4dev.gonpl.com/test/",
+			    data: { "DummyData": dummyData },
 			    async: false
 			  }).done(function(results) {
+			    sap.m.MessageToast.show(results.message);
 			    console.log(results);
 			  })
 			  .fail(function(err) {
@@ -90,7 +100,9 @@ sap.ui.define([
 			    } else {
 			      sap.m.MessageToast.show("Unknown error!");
 			    }
-			  });	
+			  });
+			  
+			  inputField.setValue("");
 		 },
 		 
 		 onAdd: function(oEvent) {

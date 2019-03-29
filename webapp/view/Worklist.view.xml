@@ -42,6 +42,15 @@
 						key="Expensive" />
 				</items>
 				<content>
+					<Input id="dummyDataInput" width="60%"/>
+					<Button id="testButton" icon="sap-icon://add" text="Post to Api" press="onCallTestAPI" tooltip="Test API" />
+					<List
+						headerText="Dummy Data Entries"
+						items="{test>/DummyData}">
+						<items>
+							<ObjectListItem title="{test>Data}" />
+						</items>
+					</List>
 					
 					<List
 						headerText="Test Products"
@@ -56,7 +65,7 @@
 							</ObjectListItem>
 						</items>
 					</List>
-					<Button id="testButton" icon="sap-icon://add" press="onCallTestAPI" tooltip="Test API" />
+					
 					<Table
 						id="table"
 						width="auto"
